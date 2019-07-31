@@ -5,6 +5,9 @@ using System.Linq;
 
 namespace PaymentGateway.Infrastructure.Data
 {
+    /// <summary>
+    /// Repository for adding and getting a Payment to/from the database
+    /// </summary>
     public class PaymentRepository : IRepository
     {
         private readonly PaymentDbContext _dbContext;

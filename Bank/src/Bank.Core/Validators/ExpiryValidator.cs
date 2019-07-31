@@ -1,5 +1,5 @@
 ﻿
-using Bank.Core.Diagnostics;
+using Common.Diagnostics;
 using System;
 
 namespace Bank.Core.Validators
@@ -9,7 +9,7 @@ namespace Bank.Core.Validators
         /// <summary>
         /// Basic validation of the expiry for a given credit card
         /// It must be in mm/yy format , which is 2 digit for month and 2 digit for year separated by /.
-        /// In the production version more validation checks must be added to check weather expiry date has been reached.
+        /// In the production version more validation checks must be added to check whether expiry date has been reached.
         /// </summary>
         /// <param name="expiry"></param>
         /// <returns></returns>

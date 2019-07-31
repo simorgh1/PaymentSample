@@ -1,14 +1,17 @@
 ﻿
 using Bank.Core.Common.DataContract;
+using Common.Diagnostics;
 using Bank.Core.Interfaces;
 using PaymentGateway.Core;
 using PaymentGateway.Core.Common.DataContract;
 using PaymentGateway.Core.Interfaces;
 using System;
-using System.Linq;
 
 namespace PaymentGateway.Domain
 {
+    /// <summary>
+    /// Responsible for getting a payment or forwarding a payment request to the bank service.
+    /// </summary>
     public class PaymentManager : IPaymentManager
     {
         private readonly IRepository _paymentRepository;
@@ -19,23 +22,31 @@ namespace PaymentGateway.Domain
             IBankService bankService
             )
         {
+            Check.NotNull(paymentRepository, nameof(paymentRepository));
+            Check.NotNull(bankService, nameof(bankService));
+
             _paymentRepository = paymentRepository;
             _bankService = bankService;
         }
 
+        /// <summary>
+        /// Retrives a payment by its id
+        /// </summary>
+        /// <param name="paymentId">The unique identifier of the payment</param>
+        /// <returns>Payment detail as <see cref="Payment"/></returns>
         public Payment GetById(Guid paymentId)
         {
-            var payment = _paymentRepository.GetById<PaymentGateway.Core.Entities.Payment>(paymentId);
+            var payment = _paymentRepository.GetById<Core.Entities.Payment>(paymentId);
 
             return Map(payment);
             
         }
 
         /// <summary>
-        /// All payment requests are processed and persisted. Bank Service mock respondes the current  payment status
+        /// All payment requests are processed and persisted. Bank Service mock respondes with the current  payment status
         /// </summary>
-        /// <param name="paymentRequest"></param>
-        /// <returns></returns>
+        /// <param name="paymentRequest">The requested payment as <see cref="PaymentRequest"/>.</param>
+        /// <returns>The result of the payment processing as <see cref="PaymentResponse"/>.</returns>
         public PaymentResponse ProcessPayment(PaymentRequest paymentRequest)
         {
             PaymentAuthorizationResponse paymentAuthorizationResponse = null;
@@ -69,7 +80,7 @@ namespace PaymentGateway.Domain
             if (string.IsNullOrEmpty(cardNumber))
                 return null;
 
-            // invalid credit card number
+            // invalid credit card number length
             if (cardNumber.Length != 16)
                 return cardNumber;
 

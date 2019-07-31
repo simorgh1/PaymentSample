@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Bank.Core.Diagnostics
+namespace Common.Diagnostics
 {
     public static class Check
     {

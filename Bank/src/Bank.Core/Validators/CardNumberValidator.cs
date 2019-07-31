@@ -1,5 +1,5 @@
 ﻿
-using Bank.Core.Diagnostics;
+using Common.Diagnostics;
 
 namespace Bank.Core.Validators
 {

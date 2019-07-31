@@ -3,6 +3,9 @@ using Bank.Infrastructure.Entities;
 
 namespace Bank.Core
 {
+    /// <summary>
+    /// Represents the default payment policy for the bank service simulator
+    /// </summary>
     public class PaymentPolicy
     {
         public decimal MaxAllowedAmount { get;}

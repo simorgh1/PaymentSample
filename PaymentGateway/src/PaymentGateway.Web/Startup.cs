@@ -34,9 +34,11 @@ namespace PaymentGateway.Web
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            // use in memory database for the paymentDbContext
             services.AddDbContext<PaymentDbContext>(options =>
             options.UseInMemoryDatabase("paymentgateway"));
 
+            // configure the required business objects for the payment gateway and banking service
             services.AddScoped<IRepository, PaymentRepository>();
             services.AddScoped<IPaymentManager, PaymentManager>();
             services.AddScoped<PaymentPolicy>();
@@ -54,6 +56,7 @@ namespace PaymentGateway.Web
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
+            // Logging configuration
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 

@@ -3,7 +3,7 @@ using Bank.Core.Common.DataContract;
 using Bank.Core.Interfaces;
 using System;
 using System.Linq;
-using Bank.Core.Diagnostics;
+using Common.Diagnostics;
 using Bank.Core.Validators;
 
 namespace Bank.Mock
