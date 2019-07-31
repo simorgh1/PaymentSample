@@ -1,11 +1,13 @@
 ﻿using PaymentGateway.Core.Common;
 using System;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace PaymentGateway.Core.Interfaces
 {
     public interface IRepository
     {
-        T GetById<T>(Guid id) where T : BaseEntity;
-        T Add<T>(T entity) where T : BaseEntity;
+        Task<T> GetByIdAsync<T>(Guid id, CancellationToken cancellationToken) where T : BaseEntity;
+        Task<T> AddAsync<T>(T entity, CancellationToken cancellationToken) where T : BaseEntity;
     }
 }

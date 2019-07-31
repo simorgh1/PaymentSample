@@ -14,7 +14,7 @@ namespace PaymentGateway.Core.Common.DataContract
         [Range(1, int.MaxValue, ErrorMessage = "Please enter the payment amount")]
         public decimal Amount { get; set; }
 
-        [Range(111, 999)]
+        [Range(100, 999)]
         public int Cvv { get; set; }
 
         [Required(ErrorMessage = "Please enter the currency code for example EUR")]

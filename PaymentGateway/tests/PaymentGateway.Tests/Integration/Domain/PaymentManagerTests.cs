@@ -2,13 +2,15 @@
 using Xunit;
 using PaymentGateway.Core.Common.DataContract;
 using System;
+using System.Threading.Tasks;
+using System.Threading;
 
 namespace PaymentGateway.Tests.Integration.Domain
 {
     public class PaymentManagerTests : baseDomainTests
     {
         [Fact]
-        public void ValidPaymentRequestReturnsSuccessfullPaymentStatus()
+        public async Task ValidPaymentRequestReturnsSuccessfullPaymentStatus()
         {
             var paymentRequest = new PaymentRequest()
             {
@@ -19,13 +21,13 @@ namespace PaymentGateway.Tests.Integration.Domain
                 Cvv = 888
             };
 
-            var response = PaymentManager.ProcessPayment(paymentRequest);
+            var response = await PaymentManager.ProcessPaymentAsync(paymentRequest, CancellationToken.None);
 
             Assert.True(response.SuccessStatus);
         }
 
         [Fact]
-        public void InValidCardnumberPaymentRequestReturnsUnSuccessfullPaymentStatus()
+        public async Task InValidCardnumberPaymentRequestReturnsUnSuccessfullPaymentStatus()
         {
             var paymentRequest = new PaymentRequest()
             {
@@ -36,13 +38,13 @@ namespace PaymentGateway.Tests.Integration.Domain
                 Cvv = 888
             };
 
-            var response = PaymentManager.ProcessPayment(paymentRequest);
+            var response = await PaymentManager.ProcessPaymentAsync(paymentRequest, CancellationToken.None);
 
             Assert.False(response.SuccessStatus);
         }
 
         [Fact]
-        public void InValidExpiryPaymentRequestReturnsUnSuccessfullPaymentStatus()
+        public async Task InValidExpiryPaymentRequestReturnsUnSuccessfullPaymentStatus()
         {
             var paymentRequest = new PaymentRequest()
             {
@@ -53,13 +55,13 @@ namespace PaymentGateway.Tests.Integration.Domain
                 Cvv = 888
             };
 
-            var response = PaymentManager.ProcessPayment(paymentRequest);
+            var response = await PaymentManager.ProcessPaymentAsync(paymentRequest, CancellationToken.None);
 
             Assert.False(response.SuccessStatus);
         }
 
         [Fact]
-        public void InValidCurrencyPaymentRequestReturnsUnSuccessfullPaymentStatus()
+        public async Task InValidCurrencyPaymentRequestReturnsUnSuccessfullPaymentStatus()
         {
             var paymentRequest = new PaymentRequest()
             {
@@ -70,13 +72,13 @@ namespace PaymentGateway.Tests.Integration.Domain
                 Cvv = 888
             };
 
-            var response = PaymentManager.ProcessPayment(paymentRequest);
+            var response = await PaymentManager.ProcessPaymentAsync(paymentRequest, CancellationToken.None);
 
             Assert.False(response.SuccessStatus);
         }
 
         [Fact]
-        public void InValidAmountPaymentRequestReturnsUnSuccessfullPaymentStatus()
+        public async Task InValidAmountPaymentRequestReturnsUnSuccessfullPaymentStatus()
         {
             var paymentRequest = new PaymentRequest()
             {
@@ -87,21 +89,21 @@ namespace PaymentGateway.Tests.Integration.Domain
                 Cvv = 888
             };
 
-            var response = PaymentManager.ProcessPayment(paymentRequest);
+            var response = await PaymentManager.ProcessPaymentAsync(paymentRequest, CancellationToken.None);
 
             Assert.False(response.SuccessStatus);
         }
 
         [Fact]
-        public void UnknownPaymentIdReturnsNull()
+        public async Task UnknownPaymentIdReturnsNull()
         {
-            var response = PaymentManager.GetById(Guid.NewGuid());
+            var response = await PaymentManager.GetByIdAsync(Guid.NewGuid(), CancellationToken.None);
 
             Assert.Null(response);
         }
 
         [Fact]
-        public void ValidPaymentIdReturnsPaymentDetails()
+        public async Task ValidPaymentIdReturnsPaymentDetails()
         {
             var paymentRequest = new PaymentRequest()
             {
@@ -112,15 +114,15 @@ namespace PaymentGateway.Tests.Integration.Domain
                 Cvv = 888
             };
 
-            var response = PaymentManager.ProcessPayment(paymentRequest);
+            var response = await PaymentManager.ProcessPaymentAsync(paymentRequest, CancellationToken.None);
 
-            var paymentDetail = PaymentManager.GetById(response.PaymentId);
+            var paymentDetail = await PaymentManager.GetByIdAsync(response.PaymentId, CancellationToken.None);
 
             Assert.True(paymentDetail.SuccessStatus);
         }
 
         [Fact]
-        public void ValidPaymentIdReturnsPaymentDetailsWithMaskedCardNumber()
+        public async Task ValidPaymentIdReturnsPaymentDetailsWithMaskedCardNumber()
         {
             var paymentRequest = new PaymentRequest()
             {
@@ -131,9 +133,9 @@ namespace PaymentGateway.Tests.Integration.Domain
                 Cvv = 888
             };
 
-            var response = PaymentManager.ProcessPayment(paymentRequest);
+            var response = await PaymentManager.ProcessPaymentAsync(paymentRequest, CancellationToken.None);
 
-            var paymentDetail = PaymentManager.GetById(response.PaymentId);
+            var paymentDetail = await PaymentManager.GetByIdAsync(response.PaymentId, CancellationToken.None);
 
             Assert.Contains("************", paymentDetail.CardNumber);
         }

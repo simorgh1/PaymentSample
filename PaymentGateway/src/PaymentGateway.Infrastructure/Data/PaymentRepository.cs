@@ -2,6 +2,8 @@
 using PaymentGateway.Core.Interfaces;
 using System;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace PaymentGateway.Infrastructure.Data
 {
@@ -17,15 +19,18 @@ namespace PaymentGateway.Infrastructure.Data
             _dbContext = dbContext;
         }
 
-        public T GetById<T>(Guid id) where T : BaseEntity
+        public async Task<T> GetByIdAsync<T>(
+            Guid id, CancellationToken cancellationToken) where T : BaseEntity
         {
-            return _dbContext.Set<T>().SingleOrDefault(e => e.Id == id);
+            return await _dbContext.Set<T>().FindAsync(
+                keyValues: new object[] { id }, 
+                cancellationToken: cancellationToken);
         }
 
-        public T Add<T>(T entity) where T : BaseEntity
+        public async Task<T> AddAsync<T>(T entity, CancellationToken cancellationToken) where T : BaseEntity
         {
-            _dbContext.Set<T>().Add(entity);
-            _dbContext.SaveChanges();
+            await _dbContext.Set<T>().AddAsync(entity, cancellationToken);
+            await _dbContext.SaveChangesAsync(cancellationToken);
 
             return entity;
         }

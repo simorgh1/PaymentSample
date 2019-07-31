@@ -6,6 +6,8 @@ using PaymentGateway.Core;
 using PaymentGateway.Core.Common.DataContract;
 using PaymentGateway.Core.Interfaces;
 using System;
+using System.Threading.Tasks;
+using System.Threading;
 
 namespace PaymentGateway.Domain
 {
@@ -34,9 +36,11 @@ namespace PaymentGateway.Domain
         /// </summary>
         /// <param name="paymentId">The unique identifier of the payment</param>
         /// <returns>Payment detail as <see cref="Payment"/></returns>
-        public Payment GetById(Guid paymentId)
+        public async Task<Payment> GetByIdAsync(
+            Guid paymentId, CancellationToken cancellationToken)
         {
-            var payment = _paymentRepository.GetById<Core.Entities.Payment>(paymentId);
+            var payment = await _paymentRepository.GetByIdAsync<Core.Entities.Payment>(
+                                                    paymentId, cancellationToken);
 
             return Map(payment);
             
@@ -47,7 +51,8 @@ namespace PaymentGateway.Domain
         /// </summary>
         /// <param name="paymentRequest">The requested payment as <see cref="PaymentRequest"/>.</param>
         /// <returns>The result of the payment processing as <see cref="PaymentResponse"/>.</returns>
-        public PaymentResponse ProcessPayment(PaymentRequest paymentRequest)
+        public async Task<PaymentResponse> ProcessPaymentAsync(
+            PaymentRequest paymentRequest, CancellationToken cancellationToken)
         {
             PaymentAuthorizationResponse paymentAuthorizationResponse = null;
             var paymentAuthorizationRequest = new PaymentAuthorizationRequest(
@@ -70,7 +75,7 @@ namespace PaymentGateway.Domain
                 SuccessStatus = paymentAuthorizationResponse.SuccessStatus
             };
 
-            _paymentRepository.Add(payment);
+            await _paymentRepository.AddAsync(payment, cancellationToken);
 
             return new PaymentResponse(payment.Id, payment.SuccessStatus);
         }

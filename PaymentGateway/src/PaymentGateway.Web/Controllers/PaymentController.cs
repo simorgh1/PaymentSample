@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using PaymentGateway.Core;
 using PaymentGateway.Core.Common.DataContract;
 using System;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace PaymentGateway.Web.Controllers
 {
@@ -28,9 +30,10 @@ namespace PaymentGateway.Web.Controllers
         /// <param name="id">The payment unique identifier</param>
         /// <returns>The payment details as <see cref="Payment"/>.</returns>
         [HttpGet("{id}")]
-        public ActionResult<Payment> Get(Guid id)
+        public async Task<ActionResult<Payment>> GetAsync(
+            Guid id, CancellationToken cancellationToken)
         {
-            return Ok(_paymentManager.GetById(id));
+            return Ok(await _paymentManager.GetByIdAsync(id, cancellationToken));
         }
 
         /// <summary>
@@ -39,9 +42,9 @@ namespace PaymentGateway.Web.Controllers
         /// <param name="request">The requested payment as <see cref="PaymentRequest"/>.</param>
         /// <returns>The results of the payment request as <see cref="PaymentResponse"/>.</returns>
         [HttpPost]
-        public ActionResult<PaymentResponse> Post([FromBody] PaymentRequest request)
+        public async Task<ActionResult<PaymentResponse>> ProcessPaymentAsync([FromBody] PaymentRequest request, CancellationToken cancellationToken)
         {
-            return Ok(_paymentManager.ProcessPayment(request));
+            return Ok(await _paymentManager.ProcessPaymentAsync(request, cancellationToken));
         }
     }
 }
