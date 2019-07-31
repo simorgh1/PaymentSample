@@ -13,6 +13,7 @@ using PaymentGateway.Core;
 using PaymentGateway.Core.Interfaces;
 using PaymentGateway.Domain;
 using PaymentGateway.Infrastructure.Data;
+using PaymentGateway.Web.Handler;
 using Swashbuckle.AspNetCore.Swagger;
 
 namespace PaymentGateway.Web
@@ -65,6 +66,7 @@ namespace PaymentGateway.Web
                 app.UseDeveloperExceptionPage();
             }
 
+            app.ConfigureExceptionHandler(loggerFactory.CreateLogger("ExceptionHandler"));
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
