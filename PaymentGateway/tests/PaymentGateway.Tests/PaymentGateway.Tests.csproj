@@ -19,6 +19,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Bank\src\Bank.Core\Bank.Core.csproj" />
+    <ProjectReference Include="..\..\..\Bank\src\Bank.Mock\Bank.Mock.csproj" />
+    <ProjectReference Include="..\..\src\PaymentGateway.Domain\PaymentGateway.Domain.csproj" />
     <ProjectReference Include="..\..\src\PaymentGateway.Infrastructure\PaymentGateway.Infrastructure.csproj" />
   </ItemGroup>
 

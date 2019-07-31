@@ -8,6 +8,9 @@ using Bank.Core.Validators;
 
 namespace Bank.Mock
 {
+    /// <summary>
+    /// Bank service simulator for processing the payment
+    /// </summary>
     public class BankService : IBankService
     {
         private readonly PaymentPolicy _paymentPolicy;
