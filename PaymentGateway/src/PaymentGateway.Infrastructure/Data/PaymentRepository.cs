@@ -1,7 +1,6 @@
 ﻿using PaymentGateway.Core.Common;
 using PaymentGateway.Core.Interfaces;
 using System;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 

@@ -12,6 +12,7 @@ The Bank Service simulates a payment authorization based on a default payment po
 - AzureDevOps build and test pipeline
 - Swagger UI is configured in the Payment rest api for documentation and testing
 - Some integration tests for the payment repository and payment manager
+- Dockerfile for the PaymentGateway REST api.  
 
 ## How to use
 
