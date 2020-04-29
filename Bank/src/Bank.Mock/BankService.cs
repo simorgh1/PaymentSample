@@ -30,10 +30,12 @@ namespace Bank.Mock
         public PaymentAuthorizationResponse AuthorizePayment(
             PaymentAuthorizationRequest paymentAuthorizationRequest)
         {
+            Check.NotNull<PaymentAuthorizationRequest>(paymentAuthorizationRequest, nameof(paymentAuthorizationRequest));
+
             // Check payment based on the payment policy
             if (_paymentPolicy.MaxAllowedAmount < paymentAuthorizationRequest.Amount ||
                 _paymentPolicy.MinAllowedAmount > paymentAuthorizationRequest.Amount ||
-                _paymentPolicy.AllowedCurrencies.Count(c=> c.Code == paymentAuthorizationRequest.Currency) == 0 ||
+                _paymentPolicy.AllowedCurrencies.Count(c => c.Code == paymentAuthorizationRequest.Currency) == 0 ||
                 !ExpiryValidator.Validate(paymentAuthorizationRequest.Expiry) ||
                 !CardNumberValidator.Validate(paymentAuthorizationRequest.CardNumber))
             {
