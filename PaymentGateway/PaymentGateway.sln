@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.572
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30011.22
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PaymentGateway.Core", "src\PaymentGateway.Core\PaymentGateway.Core.csproj", "{8A987408-A92A-4354-BEC6-2252450F9C8F}"
 EndProject
@@ -27,7 +27,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PaymentGateway.Web", "src\P
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{CC80DF20-DF38-4FA9-B8AE-3849AD1B1F43}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common.Diagnostics", "..\Common\src\Common.Diagnostics\Common.Diagnostics.csproj", "{2DACC2F7-0D5D-4B0B-9BEF-C37FB2F9B265}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Common.Diagnostics", "..\Common\src\Common.Diagnostics\Common.Diagnostics.csproj", "{2DACC2F7-0D5D-4B0B-9BEF-C37FB2F9B265}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BankServiceTests", "..\Bank\test\BankServiceTests\BankServiceTests.csproj", "{C8EAA507-A64B-4577-BB0E-FCA29E938BB4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -71,6 +73,10 @@ Global
 		{2DACC2F7-0D5D-4B0B-9BEF-C37FB2F9B265}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2DACC2F7-0D5D-4B0B-9BEF-C37FB2F9B265}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2DACC2F7-0D5D-4B0B-9BEF-C37FB2F9B265}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C8EAA507-A64B-4577-BB0E-FCA29E938BB4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C8EAA507-A64B-4577-BB0E-FCA29E938BB4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C8EAA507-A64B-4577-BB0E-FCA29E938BB4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C8EAA507-A64B-4577-BB0E-FCA29E938BB4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -85,6 +91,7 @@ Global
 		{25512D67-B1F1-4491-8EBD-8DE13B10922D} = {6445F51C-0229-4890-A462-61BEE49ED913}
 		{1E375740-4A08-4593-9336-8C2EC4E5AB31} = {10E5B442-6CAD-4BD1-BFEB-283CFA5DA617}
 		{2DACC2F7-0D5D-4B0B-9BEF-C37FB2F9B265} = {CC80DF20-DF38-4FA9-B8AE-3849AD1B1F43}
+		{C8EAA507-A64B-4577-BB0E-FCA29E938BB4} = {CB61F520-157B-4779-B3A3-41B426435410}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4C89601D-5C6F-47EE-9D00-850EFB4918A2}
