@@ -7,7 +7,7 @@ namespace PaymentGateway.Tests
     {
         private Payment _payment = new Payment();
 
-        public PaymentBuilder WithDefaultValues()
+        public PaymentBuilder ValidVisaCard()
         {
             _payment = new Payment()
             {

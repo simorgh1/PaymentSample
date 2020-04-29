@@ -13,7 +13,7 @@ namespace PaymentGateway.Tests.Integration.Data
         {
             var repository = GetRepository();
 
-            var payment = new PaymentBuilder().WithDefaultValues().Build();
+            var payment = new PaymentBuilder().ValidVisaCard().Build();
 
             await repository.AddAsync(payment, CancellationToken.None);
 
@@ -25,7 +25,7 @@ namespace PaymentGateway.Tests.Integration.Data
         {
             var repository = GetRepository();
 
-            var payment = new PaymentBuilder().WithDefaultValues().Build();
+            var payment = new PaymentBuilder().ValidVisaCard().Build();
 
             await repository.AddAsync(payment, CancellationToken.None);
 
